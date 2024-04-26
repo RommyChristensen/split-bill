@@ -31,16 +31,24 @@
 	</head>
 
 	<body>
-	<!-- Delete later -->
-	<h2>Page Contents</h2>
-		<ul>
-			<li>Bootstrap - Minified CSS</li>
-			<li>Bootstrap - Optional Theme</li>
-			<li>JQuery - UI themes</li>
-			<li>JQuery</li>
-			<li>JQuery UI</li>
-			<li>JavaScript for JQuery</li>		
-		</ul>
+	  <!-- Delete later -->
+	  <h2>Split Bill</h2>
+
+    <button id="addNewRowButton">Add New Row</button>
+
+    <label>Orang</label>
+    <input type="Nama" class="orang" />
+
+    <table>
+      <thead>
+        <th>Nama Makanan</th>
+        <th>Sub Total</th>
+        <th>Orang</th>
+      </thead>
+      <tbody id="foods"></tbody>
+    </table>
+
+    <button id="show">Calculate & Show</button>
 		
 		<!-- FOOTER SECTION - Before closing </body> tag -->
 		<!-- jQuery -->
@@ -53,6 +61,58 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		
 		<!-- Your Own JavaScript-->
-		<script type="text/javascript"></script>
+		<script type="text/javascript">
+      $(document).ready(function() {
+        let idx = 0;
+        let allFood = [];
+        
+        $("#addNewRowButton").click(function() {
+          $("#container").append(`
+            <label>Nama Makanan</label>
+            <input type="text" class="makanan-${idx}" />
+
+            <label>Sub Total</label>
+            <input type="number" class="subtotal-${idx}" />
+
+            <label>Orang</label>
+            <input type="Nama" class="orang-${idx}" />
+          `);
+          idx++;
+        });
+      });
+
+      $("#show").click(function() {
+        $("#foods").html('');
+        allFood.clear();
+
+        for(let i = 0; i < idx; i++){
+          let namaMakanan = $(".makanan-"+i).val();
+          let subTotal = $(".subtotal-"+i).val();
+          let Orang = $(".orang-"+i).val();
+
+          allFood.push({
+            makanan: namaMakanan,
+            subTotal: subTotal,
+            orang: orang
+          });
+
+          showOnTable(allFood);
+        }
+      });
+
+      let showOnTable = (allFood) => {
+        for(let i = 0; i < allFood.length; i++) {
+          $("#foods").append(`
+            <tr>
+              <td>${allFood.makanan}</td>
+              <td>${allFood.subTotal}</td>
+              <td>${allFood.orang}</td>
+            </tr>
+          `);
+        }
+      }
+
+
+    </script>
 	</body>
 </html>
